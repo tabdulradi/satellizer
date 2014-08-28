@@ -1,6 +1,6 @@
 /**
  * Satellizer
- * (c) 2014 Sahat Yalkabov <sahat@me.com>
+ * (c) 2014 Sahat Yalkabov
  * License: MIT
  */
 

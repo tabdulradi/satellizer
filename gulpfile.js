@@ -1,8 +1,9 @@
 var gulp = require('gulp');
-var rename = require("gulp-rename");
-var plumber = require('gulp-plumber');
-var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
 var complexity = require('gulp-complexity');
+var plumber = require('gulp-plumber');
+var rename = require("gulp-rename");
+var uglify = require('gulp-uglify');
 
 gulp.task('minify', function() {
   return gulp.src('satellizer.js')
@@ -10,6 +11,23 @@ gulp.task('minify', function() {
     .pipe(uglify())
     .pipe(rename('satellizer.min.js'))
     .pipe(gulp.dest('.'))
+});
+
+gulp.task('concat', function() {
+  return gulp.src([
+    'src/satellizer.js',
+    'src/config.js',
+    'src/auth.js',
+    'src/local.js',
+    'src/oauth1.js',
+    'src/oauth2.js',
+    'src/popup.js',
+    'src/utils.js',
+    'src/interceptor.js',
+    'src/run.js'
+  ])
+    .pipe(concat('satellizer.js'))
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('copy', function() {
@@ -36,4 +54,4 @@ gulp.task('java', function() {
     .pipe(gulp.dest('examples/server/java/src/main/resources/assets'))
 });
 
-gulp.task('default', ['copy', 'minify', 'watch']);
+gulp.task('default', ['copy', 'concat', 'minify', 'watch']);
